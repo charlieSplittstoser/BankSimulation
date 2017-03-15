@@ -11,9 +11,7 @@ namespace BankSimulation
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Test1");
             BankAccount account = new BankAccount();
-            Console.WriteLine("Test2");
             UserInteraction.displayWelcomeMessage();
             account = UserInteraction.handleAccountSelection(UserInteraction.displayWelcomeOptions());
             UserInteraction.displayAccountOptions(account);

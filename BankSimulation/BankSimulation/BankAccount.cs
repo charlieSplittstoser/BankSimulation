@@ -42,7 +42,7 @@ namespace BankSimulation
         public int generateAccountNumber()
         {
             int accountNumber = 0;
-            string path = @"accounts/latestAccountNumber.txt";
+            string path = @"../../accounts/latestAccountNumber.txt";
 
             /* Read Latest Account Number */
             using (StreamReader sr = File.OpenText(path))
@@ -68,7 +68,7 @@ namespace BankSimulation
          *********************************/
         public void saveAccountData()
         {
-            string path = @"accounts/accounts/" + this.accountNumber + ".txt";
+            string path = @"../../accounts/accounts/" + this.accountNumber + ".txt";
 
             using (StreamWriter sw = File.CreateText(path))
             {
