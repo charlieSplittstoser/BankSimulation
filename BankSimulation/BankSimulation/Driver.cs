@@ -13,7 +13,7 @@ namespace BankSimulation
         {
             BankAccount account = new BankAccount();
             UserInteraction.displayWelcomeMessage();
-            account = UserInteraction.handleAccountSelection(UserInteraction.displayWelcomeOptions());
+            account = UserInteraction.handleWelcomeOptions(UserInteraction.displayWelcomeOptions());
             UserInteraction.displayAccountOptions(account);
 
         }

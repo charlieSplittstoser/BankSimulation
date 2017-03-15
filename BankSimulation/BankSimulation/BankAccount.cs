@@ -85,7 +85,7 @@ namespace BankSimulation
         * Description: handles user selection for if they want to:
         *              - Check balance
         *              - Deposit
-        *              - Withdrawl
+        *              - Withdrawal
         *              - Exit program
         ***************************/
         public void handleAccountOptions(int userSelection)
@@ -106,8 +106,8 @@ namespace BankSimulation
                     Console.WriteLine("Make a deposit");
                     break;
                 case 3:
-                    // Make a withdrawl
-                    Console.WriteLine("Make a withdrawl");
+                    // Make a withdrawal
+                    Console.WriteLine("Make a withdrawal");
                     break;
             }
         }

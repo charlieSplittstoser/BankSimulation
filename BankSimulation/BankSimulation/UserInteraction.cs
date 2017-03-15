@@ -43,11 +43,11 @@ namespace BankSimulation
 
 
         /****************************
-         * Funciton: handleAccountSelection
+         * Funciton: handleWelcomeOptions
          * Description: handles logic based on if user has an account or needs to create one
          * PostCond: BankAccount object instantiated from either existing or new bank account
          ***************************/
-        public static BankAccount handleAccountSelection(int userSelection)
+        public static BankAccount handleWelcomeOptions(int userSelection)
         {
             BankAccount b = new BankAccount();
             switch (userSelection)
@@ -73,7 +73,7 @@ namespace BankSimulation
          * Description: Displays bank account options
          *              - Check balance
          *              - Deposit
-         *              - Withdrawl
+         *              - Withdrawal
          *              - Exit program
          ***************************/
         public static void displayAccountOptions(BankAccount account)
@@ -82,7 +82,7 @@ namespace BankSimulation
             Console.WriteLine("Welcome " + account.getAccountName(false) + "! How can we help you?");
             Console.WriteLine("1.) Check my Balance");
             Console.WriteLine("2.) Make a deposit");
-            Console.WriteLine("3.) Make a withdrawl");
+            Console.WriteLine("3.) Make a withdrawal");
             Console.WriteLine("Please enter a number to select an option. Entering an invalid number will exit.");
             try
             {
