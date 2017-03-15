@@ -1,4 +1,0 @@
-Account Number: 10013
-Account Holder Name: Charlie Splittstoser
-Savings: 0
-Checking: 0
