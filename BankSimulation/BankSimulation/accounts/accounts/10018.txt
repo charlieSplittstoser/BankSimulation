@@ -1,0 +1,4 @@
+Account Number: 10018
+Account Holder Name: charlie splittstoser
+Savings: 105.34
+Checking: 0

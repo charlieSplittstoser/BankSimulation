@@ -1,0 +1,4 @@
+Account Number: 10019
+Account Holder Name: karin craig
+Savings: 0
+Checking: 350

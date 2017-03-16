@@ -48,15 +48,19 @@ namespace BankSimulation
             using (StreamReader sr = File.OpenText(path))
             {
                 accountNumber = Convert.ToInt32(sr.ReadLine()) + 1;
+                sr.Close();
             }
 
             /* Overwrite Latest Account Number */
             using (StreamWriter sw = File.CreateText(path))
             {
                 sw.WriteLine(accountNumber);
+                sw.Close();
             }
 
             this.accountNumber = accountNumber;
+
+            
 
                 return accountNumber;
         }
@@ -76,6 +80,7 @@ namespace BankSimulation
                 sw.WriteLine("Account Holder Name: " + this.firstName + " " + this.lastName);
                 sw.WriteLine("Savings: " + this.accountBalance[SAVINGS]);
                 sw.WriteLine("Checking: " + this.accountBalance[CHECKING]);
+                sw.Close();
             }
         }
 
@@ -101,16 +106,138 @@ namespace BankSimulation
                     this.checkBalance();
                     break;
                 case 2:
-                    // Make a deposit
-                    Console.WriteLine("Make a deposit");
+                    this.makeDeposit();
+                    // Console.WriteLine("Make a deposit");
                     break;
                 case 3:
-                    // Make a withdrawal
-                    Console.WriteLine("Make a withdrawal");
+                    this.makeWithdrawal();
+                    //Console.WriteLine("Make a withdrawal");
                     break;
             }
         }
 
+
+
+        /**********************************
+         * Function: makeDeposit
+         * Description: Let's a user make a deposit
+         * PostCond: Adds x dollar amount into either checkings or savings account
+         *********************************/
+        void makeDeposit()
+        {
+            string userOption;
+            string userInput;
+            double depositAmount;
+            bool isDouble = false;
+
+            Console.Clear();
+            Console.WriteLine("Account Number: " + this.getAccountNumber());
+            Console.WriteLine("\n" + this.getAccountName(false) + ", which account would you like to deposit money into?");
+            Console.WriteLine("1.) Savings ($" + this.getBalance(SAVINGS) + ")");
+            Console.WriteLine("2.) Checking ($" + this.getBalance(CHECKING) + ")");
+
+            /* User selection */
+            do
+            {
+                Console.WriteLine("Please enter a valid option(Enter 0 to quit):");
+                userOption = Console.ReadLine();
+            } while (!userOption.Equals("0") && !userOption.Equals("1") && !userOption.Equals("2"));
+
+
+            /* Deposit functionality based on user selection */
+            switch(userOption)
+            {
+                case "0":
+                    Console.WriteLine("Thank you for banking with us! Exiting the program ... ");
+                    System.Environment.Exit(1107);
+                    break;
+                case "1":
+                case "2":
+                    string account = userOption == "1" ? "savings" : "checking";
+                    do
+                    {
+                        Console.WriteLine("How much would you like to deposit into your " + account + " account?");
+                        Console.Write("$");
+                        userInput = Console.ReadLine();
+                        isDouble = Double.TryParse(userInput, out depositAmount);
+                    } while (!isDouble);
+
+                    int accountType = Convert.ToInt32(userOption) - 1; 
+                    this.setBalance(accountType, this.getBalance(accountType) + depositAmount);
+
+                    this.saveAccountData();
+                    
+                    break;
+
+                    
+            }
+        }
+
+
+
+        /**********************************
+         * Function: makeWithdrawal
+         * Description: Let's a user make a withdrawal
+         * PostCond: subtracts x dollar amount into either checkings or savings account
+         *********************************/
+        void makeWithdrawal()
+        {
+            string userOption;
+            string userInput;
+            double withdrawalAmount;
+            bool isDouble = false;
+
+            Console.Clear();
+            Console.WriteLine("Account Number: " + this.getAccountNumber());
+            Console.WriteLine("\n" + this.getAccountName(false) + ", which account would you like to withdraw money from?");
+            Console.WriteLine("1.) Savings ($" + this.getBalance(SAVINGS) + ")");
+            Console.WriteLine("2.) Checking ($" + this.getBalance(CHECKING) + ")");
+
+            /* User selection */
+            do
+            {
+                Console.WriteLine("Please enter a valid option(Enter 0 to quit):");
+                userOption = Console.ReadLine();
+            } while (!userOption.Equals("0") && !userOption.Equals("1") && !userOption.Equals("2"));
+
+
+            /* Deposit functionality based on user selection */
+            switch (userOption)
+            {
+                case "0":
+                    Console.WriteLine("Thank you for banking with us! Exiting the program ... ");
+                    System.Environment.Exit(1107);
+                    break;
+                case "1":
+                case "2":
+                    string account = userOption == "1" ? "savings" : "checking";
+                    do
+                    {
+                        Console.WriteLine("How much would you like to withdraw from your " + account + " account?");
+                        Console.Write("$");
+                        userInput = Console.ReadLine();
+                        isDouble = Double.TryParse(userInput, out withdrawalAmount);
+                    } while (!isDouble);
+
+                    int accountType = Convert.ToInt32(userOption) - 1;
+                    if (withdrawalAmount > this.getBalance(accountType))
+                        this.setBalance(accountType, 0);
+                    else
+                        this.setBalance(accountType, this.getBalance(accountType) - withdrawalAmount);
+
+                    this.saveAccountData();
+
+                    break;
+
+
+            }
+        }
+
+
+        /**********************************
+         * Function: checkBalance
+         * Description: Let's a user check their balance in both savings and checking accounts
+         *********************************/
         void checkBalance()
         {
             Console.Clear();

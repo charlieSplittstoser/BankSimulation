@@ -171,12 +171,16 @@ namespace BankSimulation
                         break;
                     
                 } // end switch
+
+                
                  
                 lineNumber++;
 
             } //end while
 
-                return account;
+            reader.Close();
+
+            return account;
         }
 
 

@@ -1,0 +1,4 @@
+Account Number: 10017
+Account Holder Name: charlie split
+Savings: 0
+Checking: 10
