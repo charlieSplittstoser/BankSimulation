@@ -13,5 +13,5 @@ Features:
 - Account Access
   - Grabs account info from text document
   - Check balance
-  - Make a withdrawl
+  - Make a withdrawal
   - Make a deposit
