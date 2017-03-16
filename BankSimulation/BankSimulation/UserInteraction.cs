@@ -11,11 +11,15 @@ namespace BankSimulation
     class UserInteraction
     {
 
+        /* Constants */
+        const int SAVINGS = 0;
+        const int CHECKING = 1;
+
         /*****************************
          * Function: displayWelcomeMessage
          * Description: Displays the welcome message for Splittstoser Banks
          ****************************/
-       public static void displayWelcomeMessage()
+        public static void displayWelcomeMessage()
         {
             Console.WriteLine("Welcome to Splittstoser Banks! How can we help you?\n");
         }
@@ -78,12 +82,20 @@ namespace BankSimulation
          ***************************/
         public static void displayAccountOptions(BankAccount account)
         {
+            Console.Clear();
             int userSelection = 0;
-            Console.WriteLine("Welcome " + account.getAccountName(false) + "! How can we help you?");
+
+            Console.WriteLine("Account Name: " + account.getAccountName(true));
+            Console.WriteLine("Account Number: " + account.getAccountNumber());
+
+            Console.WriteLine("\nWelcome " + account.getAccountName(false) + "! How can we help you?");
             Console.WriteLine("1.) Check my Balance");
             Console.WriteLine("2.) Make a deposit");
             Console.WriteLine("3.) Make a withdrawal");
             Console.WriteLine("Please enter a number to select an option. Entering an invalid number will exit.");
+
+            
+            
             try
             {
                 userSelection = Convert.ToInt32(Console.ReadLine());
@@ -102,8 +114,69 @@ namespace BankSimulation
         static BankAccount searchForUserAccount()
         {
             BankAccount account = new BankAccount();
-            //Add file processing & logic
-            return account;
+            bool invalidNumber = false;
+            String message, userInput;
+            String path;
+
+            Console.Clear();
+            Console.WriteLine("Welcome Back! Please enter your account number so we can find your information!");
+            Console.WriteLine("Enter 0 if you wish to exit.");
+
+            /* Let user enter an account # and search for their account */
+            do
+            {
+                message = invalidNumber ? "Could not find account. Enter account number: " : "Account Number: ";
+                Console.Write(message);
+                userInput = Console.ReadLine();
+                path = @"../../accounts/accounts/" + userInput + ".txt";
+                invalidNumber = true;
+                if (userInput.Equals("0"))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Exiting Program.... Thank you for banking with us!");
+                    System.Environment.Exit(1107);
+                }
+
+            } while (!File.Exists(path));
+
+
+            /* Load account info from file */
+            StreamReader reader = File.OpenText(path);
+            string line;
+            int lineNumber = 1;
+            while ((line = reader.ReadLine()) != null)
+            {
+                string[] items = line.Split(':');
+
+                switch(lineNumber)
+                {
+                    /* Load account number */
+                    case 1:
+                        account.setAccountNumber(Convert.ToInt32(items[1].Trim()));
+                        break;
+
+                    /* Load account name */
+                    case 2:
+                        items = items[1].TrimStart().Split(' ');
+                        account.setFirstName(items[0]);
+                        account.setLastName(items[1]);
+                        break;
+
+                    /* Load savings balance */
+                    case 3:
+                        account.setBalance(SAVINGS, Convert.ToDouble(items[1].Trim()));
+                        break;
+                    case 4:
+                        account.setBalance(CHECKING, Convert.ToDouble(items[1].Trim()));
+                        break;
+                    
+                } // end switch
+                 
+                lineNumber++;
+
+            } //end while
+
+                return account;
         }
 
 
@@ -117,6 +190,7 @@ namespace BankSimulation
             string firstName;
             string lastName;
 
+            Console.Clear();
             Console.WriteLine("Thank you for your interest in Splittstoser Banks!");
             Console.WriteLine("Please answer the following questions:");
             Console.Write("What is your first name?: ");

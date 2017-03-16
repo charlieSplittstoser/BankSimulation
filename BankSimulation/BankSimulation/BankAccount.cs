@@ -98,8 +98,7 @@ namespace BankSimulation
                     System.Environment.Exit(1107);
                     break;
                 case 1:
-                    //Check balance
-                    Console.WriteLine("Check Balance");
+                    this.checkBalance();
                     break;
                 case 2:
                     // Make a deposit
@@ -112,6 +111,16 @@ namespace BankSimulation
             }
         }
 
+        void checkBalance()
+        {
+            Console.Clear();
+
+            Console.WriteLine("Account balance for " + this.getAccountName(true) + ":");
+            Console.WriteLine("Account Number: " + this.getAccountNumber());
+            Console.WriteLine("Savings: $" + this.getBalance(SAVINGS));
+            Console.WriteLine("Checking: $" + this.getBalance(CHECKING));
+        }
+
 
         /******** Getters & Setters ********/
 
@@ -120,6 +129,30 @@ namespace BankSimulation
             return this.accountNumber;
         }
 
+        public void setAccountNumber(int accountNumber)
+        {
+            this.accountNumber = accountNumber;
+        }
+
+        public void setFirstName(string firstName)
+        {
+            this.firstName = firstName;
+        }
+
+        public void setLastName(string lastName)
+        {
+            this.lastName = lastName;
+        }
+
+        public void setBalance(int account, double balance)
+        {
+            this.accountBalance[account] = balance;
+        }
+
+        public double getBalance(int account)
+        {
+            return this.accountBalance[account];
+        }
 
         public string getAccountName(bool fullName)
         {
