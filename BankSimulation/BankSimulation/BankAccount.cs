@@ -60,9 +60,7 @@ namespace BankSimulation
 
             this.accountNumber = accountNumber;
 
-            
-
-                return accountNumber;
+            return accountNumber;
         }
 
         /**********************************
